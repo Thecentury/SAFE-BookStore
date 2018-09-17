@@ -5,6 +5,7 @@
     <Compile Include="../Client/Pages.fs" Watch="false" />
     <Compile Include="../Client/Style.fs" Watch="false" />
     <Compile Include="../Client/views/Menu.fs" Watch="false" />
+    <Compile Include="../Client/pages/Tomato.fs" Watch="false" />
     <Compile Include="../Client/pages/Home.fs" Watch="false" />
     <Compile Include="../Client/pages/WishList.fs" Watch="false" />
     <Compile Include="../Client/pages/Login.fs" Watch="false" />

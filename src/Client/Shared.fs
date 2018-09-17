@@ -6,6 +6,7 @@ type PageModel =
     | HomePageModel
     | LoginModel of Login.Model
     | WishListModel of WishList.Model
+    | TomatoModel of Tomato.Model
 
 /// The composed model for the application, which is a single page state plus login information
 type Model =
@@ -20,6 +21,7 @@ type Msg =
     | LoginMsg of Login.Msg
     | WishListMsg of WishList.Msg
     | Logout of unit
+    | TomatoMsg of Tomato.Msg
 
 
 // VIEW
@@ -39,6 +41,9 @@ let viewPage model dispatch =
 
     | WishListModel m ->
         [ WishList.view m (WishListMsg >> dispatch) ]
+
+    | TomatoModel m ->
+        Tomato.view m (TomatoMsg >> dispatch)
 
 /// Constructs the view for the application given the model.
 let view model dispatch =

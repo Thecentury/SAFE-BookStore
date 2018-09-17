@@ -10,6 +10,7 @@ type Model = UserData option
 let inline private clientView onLogout (model:Model) =
     div [ centerStyle "row" ] [
           yield viewLink Page.Home "Home"
+          yield viewLink Page.Tomato "Tomato"
           if model <> None then
               yield viewLink Page.WishList "Wishlist"
           if model = None then

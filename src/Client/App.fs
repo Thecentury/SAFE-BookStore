@@ -42,6 +42,10 @@ let urlUpdate (result:Page option) (model: Model) =
     | Some Page.Home ->
         { model with PageModel = HomePageModel }, Cmd.none
 
+    | Some Page.Tomato ->
+        let m = Tomato.init()
+        { model with PageModel = TomatoModel m }, Cmd.none    
+
 let loadUser () : UserData option =
     BrowserLocalStorage.load "user"
 
@@ -60,8 +64,9 @@ let hydrateModel (json:string) (page: Page option) : Model * Cmd<_> =
     match page, model.PageModel with
     | Some Page.Home, HomePageModel -> model, Cmd.none
     | Some Page.Login, LoginModel _ -> model, Cmd.none
+    | Some Page.Tomato, TomatoModel _ -> model, Cmd.none
     | Some Page.WishList, WishListModel _ -> model, Cmd.none
-    | _, HomePageModel |  _, LoginModel _ |  _, WishListModel _ ->
+    | _, HomePageModel |  _, LoginModel _ |  _, WishListModel _ | _, TomatoModel _ ->
         // unknown page or page does not match model -> go to home page
         { User = None; PageModel = HomePageModel }, Cmd.none
 
@@ -127,6 +132,13 @@ let update msg model =
 
     | Logout(), _ ->
         model, deleteUserCmd
+    
+    | TomatoMsg msg, TomatoModel tm ->
+        let color = match msg with Tomato.Msg.ChangeColor c -> c
+        let tm = { tm with Color = color }
+        { model with PageModel = TomatoModel tm }, Cmd.none
+
+    | TomatoMsg msg, _ -> model, Cmd.none
 
 
 open Elmish.Debug
